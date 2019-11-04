@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const users = JSON.parse(
   fs.readFileSync("./public/data.json", { encoding: "utf8" })
-).users;
+);
 
 //Sign Up
 module.exports.createNewUser = function(req, res) {
@@ -12,7 +12,7 @@ module.exports.createNewUser = function(req, res) {
 
   let usersList = JSON.parse(JSON.stringify(users));
 
-  usersList.push(newUser);
+  usersList.users.push(newUser);
 
   fs.writeFileSync("./public/data.json", JSON.stringify(usersList)); //saved
 };
@@ -23,22 +23,19 @@ module.exports.createPost = function(req, res) {
   const id = req.params.id;
 
   let usersList = JSON.parse(JSON.stringify(users));
-  let user = usersList.find(item => {
+
+  let user = usersList.users.find(item => {
     return item.id == id;
   });
-  if (user) {
-    let indexOfUser = users.indexOf(user);
 
-    user.posts.push({
-      content: content,
-      id: shortid.generate(),
-      like: "0",
-      comment: []
-    });
-    usersList[indexOfUser] = user;
+  let indexOf = usersList.users.indexOf(user);
+  user.posts.push({
+    id: shortid.generate(),
+    content: content,
+    like: "0",
+    comment: []
+  });
 
-    fs.writeFileSync("./public/data.json", JSON.stringify(usersList)); //saved
-  } else {
-    res.send("Fuck off");
-  }
+  usersList.users[indexOf] = user;
+  fs.writeFileSync("./public/data.json", JSON.stringify(usersList)); //saved
 };
