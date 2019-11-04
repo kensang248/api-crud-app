@@ -5,6 +5,8 @@ const createController = require("../controllers/user.create");
 const router = express.Router();
 
 //GET
+router.get("/", searchController.getAllUsers);
+
 router.get("/:id", searchController.userId);
 
 router.get("/:id/posts", searchController.userPosts);

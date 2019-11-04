@@ -4,6 +4,11 @@ const users = JSON.parse(
   fs.readFileSync("./public/data.json", { encoding: "utf8" })
 ).users;
 
+//get all users
+module.exports.getAllUsers = function(req, res) {
+  res.json(users);
+};
+
 //userId
 module.exports.userId = function(req, res) {
   const id = req.params.id;
