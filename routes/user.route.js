@@ -1,12 +1,27 @@
 const express = require("express");
-const controller = require("../controllers/user.search");
+const searchController = require("../controllers/user.search");
+const createController = require("../controllers/user.create");
 
 const router = express.Router();
 
-router.get("/:id", controller.userId);
+//GET
+router.get("/:id", searchController.userId);
 
-router.get("/:id/posts", controller.userPosts);
+router.get("/:id/posts", searchController.userPosts);
 
-router.get("/:id/posts/?content=", controller.userSearchPosts);
+router.get("/:id/posts/?content=", searchController.userSearchPosts);
+
+//POST
+router.post("/create", createController.createNewUser);
+
+router.post("/create/:id/post", createController.createPost);
+
+//PUT
+
+router.put("/modify");
+
+//DELETE
+
+router.delete("/delete");
 
 module.exports = router;

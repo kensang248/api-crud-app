@@ -1,12 +1,12 @@
-const shortid = require("short-id");
 const fs = require("fs");
 
-const users = JSON.parse(fs.readFileSync("./public/data.json")).users;
+const users = JSON.parse(
+  fs.readFileSync("./public/data.json", { encoding: "utf8" })
+).users;
 
 //userId
 module.exports.userId = function(req, res) {
-  let id = req.params.id;
-
+  const id = req.params.id;
   const user = users.find(item => {
     return item.id == id;
   });
